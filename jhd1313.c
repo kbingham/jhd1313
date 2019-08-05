@@ -15,12 +15,6 @@ struct jhd1313 {
 	struct i2c_client *client;
 };
 
-static void jhd1313_backlight(struct charlcd *lcd, int on)
-{
-	/* MFD to the PCA9633 ? - or link with DT? */
-	pr_err("Set backlight %s \n", on ? "on" : "off");
-}
-
 static void jhd1313_write_cmd(struct charlcd *lcd, int cmd)
 {
 	struct jhd1313 *jhd = lcd->drvdata;
@@ -40,7 +34,6 @@ static void jhd1313_write_data(struct charlcd *lcd, int data)
 static const struct charlcd_ops jhd1313_ops = {
 	.write_cmd	= jhd1313_write_cmd,
 	.write_data	= jhd1313_write_data,
-	.backlight	= jhd1313_backlight,
 };
 
 static int jhd1313_probe(struct i2c_client *client)
