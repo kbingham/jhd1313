@@ -5,7 +5,6 @@
  *
  */
 
-#include <linux/delay.h>
 #include <linux/module.h>
 #include <linux/mod_devicetable.h>
 
@@ -28,9 +27,6 @@ static void jhd1313_write_cmd(struct charlcd *lcd, int cmd)
 	struct i2c_client *client = jhd->client;
 
 	i2c_smbus_write_byte_data(client, 0x00, cmd);
-
-	/* The shortest command takes at least 120 us */
-	udelay(120);
 }
 
 static void jhd1313_write_data(struct charlcd *lcd, int data)
@@ -39,9 +35,6 @@ static void jhd1313_write_data(struct charlcd *lcd, int data)
 	struct i2c_client *client = jhd->client;
 
 	i2c_smbus_write_byte_data(client, 0x40, data);
-
-	/* The shortest data takes at least 45 us */
-	udelay(45);
 }
 
 static const struct charlcd_ops jhd1313_ops = {
